@@ -89,12 +89,47 @@
     - 카프카와 연계하여 토픽에 들어가는 메시지의 스키마를 이 스키마 레지스트리에 저장할 수 있습니다.
         - 이는 producer와 consumer가 같은 스키마를 사용하도록 해줍니다.
 
+
+
+## cli를 통한 예제
+
+- create topic 
+```bash
+kafka-topics --create --bootstrap-server dev-geon-kafka001-ncl.nfra.io:9092,dev-geon-kafka002-ncl.nfra.io:9092,dev-geon-kafka003-ncl.nfra.io:9092 --replication-factor 1 --partitions 1 --topic test_geonyeong_topic
+```
+- list topic
+```bash
+kafka-topics --list --bootstrap-server dev-geon-kafka001-ncl.nfra.io:9092,dev-geon-kafka002-ncl.nfra.io:9092,dev-geon-kafka003-ncl.nfra.io:9092
+```
+
+- send message
+```bash
+kafka-console-producer --broker-list dev-geon-kafka001-ncl.nfra.io:9092,dev-geon-kafka002-ncl.nfra.io:9092,dev-geon-kafka003-ncl.nfra.io:9092 --topic test_geonyeong_topic
+```
+
+- consume message
+```bash
+kafka-console-consumer --bootstrap-server dev-geon-kafka001-ncl.nfra.io:9092,dev-geon-kafka002-ncl.nfra.io:9092,dev-geon-kafka003-ncl.nfra.io:9092 --topic test_geonyeong_topic --group test_consumer_group --from-beginning
+```
+
+- describe topic
+```bash
+kafka-topics --describe --bootstrap-server dev-geon-kafka001-ncl.nfra.io:9092,dev-geon-kafka002-ncl.nfra.io:9092,dev-geon-kafka003-ncl.nfra.io:9092 --topic test_geonyeong_topic
+```
+
+- offset/ lag describe
+```bash
+kafka-consumer-groups --bootstrap-server dev-geon-kafka001-ncl.nfra.io:9092,dev-geon-kafka002-ncl.nfra.io:9092,dev-geon-kafka003-ncl.nfra.io:9092 --group test_consumer_group --describe
+```
+
 ## 카프카 매니저 [install](https://m.blog.naver.com/PostView.nhn?blogId=occidere&logNo=221395731049&proxyReferer=https%3A%2F%2Fwww.google.com%2F)
 
 - 카프카 매니저는 yahoo에서 제작한 카프카의 전반적인 관리 및 모니터링을 웹으로 제공해주는 툴입니다.
 - 설치 가이드는 위와 link의 블로그대로 따라하면 됩니다. `1.3.3.18 버전은 consumer group 부분에 bug가 있어, 그 윗버전을 설치하시는걸 추천드립니다.`
 
+
 ### axon과 같은 이벤트 framework를 이용하여, 단일이 아닌 여러개의 동일 어플리케이션이 동작하는 환경에서 고려할 점.
 
 1. 
 2. 
+
